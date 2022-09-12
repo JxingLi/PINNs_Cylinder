@@ -1,0 +1,33 @@
+Namespace(points_name='60+8', Layer_depth=6, Layer_width=64, Net_pattern='single', epochs_adam=400000, save_freq=5000, print_freq=1000, device=0, work_name='no-out-norm', Nx_EQs=30000, Nt_EQs=5, Nt_BCs=120)
+load start epoch at 395000
+plot training loss
+plot several true and predicted fields
+plot dynamic coefficient
+origin drag mean: 0.665, predicted drag mean: 0.659, relative error: 1.009%, 
+origin lift delta: 0.773, predicted lift delta: 0.750, relative error: 3.019%, 
+
+plot fields L2 error 
+Relative L2 error: 0.031
+plot several true and predicted fields gif
+para:   0,   time:   0
+para:   0,   time:   0
+para:   0,   time:   1
+para:   0,   time:   2
+para:   0,   time:   3
+para:   0,   time:   4
+para:   0,   time:   5
+para:   0,   time:   6
+para:   0,   time:   7
+para:   0,   time:   8
+para:   0,   time:   9
+para:   0,   time:   10
+para:   0,   time:   11
+para:   0,   time:   12
+para:   0,   time:   13
+para:   0,   time:   14
+para:   0,   time:   15
+para:   0,   time:   16
+para:   0,   time:   17
+para:   0,   time:   18
+para:   0,   time:   19
+para:   0,   time:   20
