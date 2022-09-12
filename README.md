@@ -16,7 +16,7 @@
 
 ### 2.1 代码说明
 
-1. [PINNs_Cylinder AI studio](https://aistudio.baidu.com/aistudio/projectdetail/4501565)相关运行结果
+1. [PINNs_Cylinder AI studio](https://aistudio.baidu.com/aistudio/projectdetail/4529544)相关运行结果
 
   - run_train_pdpd.py   为训练主程序
   - run_tvalidate_pdpd.py  为验证主程序
