@@ -17,7 +17,7 @@ def get_args():
 
     parser = argparse.ArgumentParser('PINNs for naiver-stokes cylinder with Karman Vortex', add_help=False)
     parser.add_argument('-f', type=str, default="external parameters")
-    parser.add_argument('--Layer_depth', default=6, type=int, help="Number of Layers depth")
+    parser.add_argument('--Layer_depth', default=5, type=int, help="Number of Layers depth")
     parser.add_argument('--Layer_width', default=64, type=int, help="Number of Layers width")
     parser.add_argument('--in_norm', default=True, type=bool, help="input feature normalization")
     parser.add_argument('--out_norm', default=True, type=bool, help="output fields normalization")
@@ -258,10 +258,11 @@ if __name__ == '__main__':
     log_loss=[]
     """load a pre-trained model"""
 
-    start_epoch, log_loss = Net_model.loadmodel(os.path.join(work_path, 'latest_model.pth'))
     if opts.load_pretrained:
         print('load pretrained model')
         start_epoch, log_loss = Net_model.loadmodel(os.path.join(work_path, 'pretrained_model.pth'))
+    else:
+        start_epoch, log_loss = Net_model.loadmodel(os.path.join(work_path, 'latest_model.pth'))
 
     for i in range(start_epoch):
         #  update the learning rate for start_epoch times
