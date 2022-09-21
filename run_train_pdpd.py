@@ -29,6 +29,7 @@ def get_args():
     parser.add_argument('--print_freq', default=1000, type=int, help="frequency to print loss")
     parser.add_argument('--device', default=0, type=int, help="gpu id")
     parser.add_argument('--work_name', default='', type=str, help="work path to save files")
+    parser.add_argument('--load_pretrained', default=False, type=bool, help="load pretrained model or not")
 
     parser.add_argument('--Nx_EQs', default=30000, type=int, help="xy sampling in for equation loss")
     parser.add_argument('--Nt_EQs', default=2, type=int, help="time sampling in for equation loss")
@@ -175,6 +176,7 @@ def inference(inn_var, model, opts):
 
 if __name__ == '__main__':
     opts = get_args()
+    opts.load_pretrained = True
     print(opts)
     if paddle.fluid.is_compiled_with_cuda():
         paddle.set_device("gpu:" + str(opts.device)) # 指定第一块gpu
@@ -187,6 +189,7 @@ if __name__ == '__main__':
     work_name = 'NS-cylinder-2d-t_pdpd_' + points_name + '-' + opts.work_name
     work_path = os.path.join('work', work_name)
     tran_path = os.path.join('work', work_name, 'train')
+
     isCreated = os.path.exists(tran_path)
     if not isCreated:
         os.makedirs(tran_path)
@@ -254,7 +257,12 @@ if __name__ == '__main__':
     start_epoch=0
     log_loss=[]
     """load a pre-trained model"""
+
     start_epoch, log_loss = Net_model.loadmodel(os.path.join(work_path, 'latest_model.pth'))
+    if opts.load_pretrained:
+        print('load pretrained model')
+        start_epoch, log_loss = Net_model.loadmodel(os.path.join(work_path, 'pretrained_model.pth'))
+
     for i in range(start_epoch):
         #  update the learning rate for start_epoch times
         Scheduler1.step()
@@ -292,7 +300,7 @@ if __name__ == '__main__':
 
         if iter > 0 and iter % opts.save_freq == 0:
             input_visual_p = paddle.to_tensor(input_visual[:100:10], dtype='float32', place='gpu:0')
-            field_visual_p = inference(input_visual_p, Net_model)
+            field_visual_p = inference(input_visual_p, Net_model, opts)
             field_visual_t = field_visual[:100:10]
             field_visual_p = field_visual_p.cpu().numpy()
 
